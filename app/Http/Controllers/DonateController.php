@@ -95,7 +95,7 @@ class DonateController extends Controller
                 $transaction = $this->midtrans->createTransaction($transactionData);
 
                 // Jika transaksi berhasil, update status menjadi success
-                $donateSave->update(['status' => 'success']);
+                $donateSave->update(['status' => 'sukses']);
 
                 // Commit transaksi database setelah semua berhasil
                 DB::commit();
@@ -103,7 +103,7 @@ class DonateController extends Controller
                 // Redirect ke halaman pembayaran Midtrans
                 return redirect($transaction->redirect_url);
             }
-            $donateSave->update(['status' => 'success']);
+            $donateSave->update(['status' => 'sukses']);
             // Commit transaksi database setelah semua berhasil
             DB::commit();
             // Redirect dengan pesan sukses
@@ -149,5 +149,14 @@ class DonateController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function updateStatus($id, $status)
+    {
+        $donate = Donate::findOrFail($id);
+        $donate->status = $status; // Set status sesuai parameter (sukses atau ditolak)
+        $donate->save();
+
+        return redirect()->route('listdonate.index')->with('success', 'Status donasi berhasil diperbarui');
     }
 }

@@ -68,6 +68,10 @@ Route::middleware('auth')->group(function () {
         return view('backend.donate.tracking');
     });
 
+
+    Route::post('/listdonate/{id}/updateStatus/{status}', [DonateController::class, 'updateStatus'])->name('listdonate.updateStatus');
+
+
     Route::get('/logout', [AuthController::class, 'logout']);
 });
 

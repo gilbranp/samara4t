@@ -8,6 +8,20 @@
         <h1 class="text-3xl lg:text-4xl font-semibold text-green-700 mb-4 lg:mb-0 text-center lg:text-left">Daftar Donasi</h1>
     </div>
 
+    <!-- Alert Sukses -->
+    @if(session('success'))
+        <div class="mb-4 p-4 bg-green-100 text-green-700 rounded-lg">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    <!-- Alert Gagal -->
+    @if(session('error'))
+        <div class="mb-4 p-4 bg-red-100 text-red-700 rounded-lg">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <!-- Tabel Donasi -->
     <div class="bg-white p-4 rounded-lg shadow-lg overflow-x-auto">
         <h3 class="text-xl font-bold mb-4">Daftar Donasi</h3>
@@ -18,9 +32,9 @@
                     <th class="py-2 px-4 border">Nama Donatur</th>
                     <th class="py-2 px-4 border">Jenis Donasi</th>
                     <th class="py-2 px-4 border">Jumlah Donasi</th>
-                    <th class="py-2 px-4 border">Nama Barang</th>
                     <th class="py-2 px-4 border">Jumlah Barang</th>
                     <th class="py-2 px-4 border">Tanggal Kadaluarsa</th>
+                    <th class="py-2 px-4 border">Status</th>
                     <th class="py-2 px-4 border">Pesan Donatur</th>
                     <th class="py-2 px-4 border">Aksi</th>
                 </tr>
@@ -33,9 +47,24 @@
                         <td class="py-2 px-4 border">{{ $donate->name }}</td>
                         <td class="py-2 px-4 border">{{ $donate->donation_type }}</td>
                         <td class="py-2 px-4 border">{{ $donate->amount ? number_format($donate->amount) . ' IDR' : '-' }}</td>
-                        <td class="py-2 px-4 border">{{ $donate->item_name ?? '-' }}</td>
                         <td class="py-2 px-4 border">{{ $donate->item_qty ?? '-' }}</td>
-                        <td class="py-2 px-4 border">{{ $donate->expired_date ? $donate->expired_date : '-' }}</td>
+                        <td class="py-2 px-4 border">{{ $donate->expired_date ? $donate->expired_date : '-' }}</td> 
+                        <td class="py-2 px-4 border">
+                            @if($donate->status === 'sukses' || $donate->status === 'success')
+                                <span class="px-2 py-1 rounded text-white font-semibold bg-green-500">
+                                    {{ $donate->status }}
+                                </span>
+                            @elseif($donate->status === 'ditolak')
+                                <span class="px-2 py-1 rounded text-white font-semibold bg-red-500">
+                                    {{ $donate->status }}
+                                </span>
+                            @else
+                                <span class="px-2 py-1 rounded text-white font-semibold bg-yellow-500">
+                                    {{ $donate->status }}
+                                </span>
+                            @endif
+                        </td>
+                        
                         <td class="py-2 px-4 border">{{ \Illuminate\Support\Str::limit($donate->message, 20, '...') ?? '-' }}</td>
                         <td class="py-2 px-4 border flex justify-around">
                             <a href="{{ route('listdonate.show',$donate->id) }}"><button class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition duration-200">

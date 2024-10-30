@@ -9,16 +9,20 @@ use Illuminate\Routing\Controller;
 
 class DashboardController extends Controller
 {
-    public function index(){
-        $donates = Donate::orderBy('created_at', 'desc')->take(5)->get();
-        // Hitung total donasi uang
-        $totalCashDonate = Donate::whereNotNull('amount')->sum('amount');
-        // Hitung total donasi barang
-        $totalItemDonate = Donate::whereNotNull('item_qty')->sum('item_qty');
-
-        $totalActiveUsers = User::where('is_active', 1)->count(); // Menghitung pengguna aktif
-
-
-        return view('backend.index', compact('donates','totalCashDonate','totalItemDonate','totalActiveUsers'));
+    public function index() {
+        // Ambil donasi dengan status 'sukses' atau 'success', urutkan berdasarkan tanggal terbaru, ambil 5 data
+        $donates = Donate::whereIn('status', ['sukses', 'success'])->orderBy('created_at', 'desc')->take(5)->get();
+    
+        // Hitung total donasi uang yang statusnya 'sukses' atau 'success'
+        $totalCashDonate = Donate::whereIn('status', ['sukses', 'success'])->whereNotNull('amount')->sum('amount');
+    
+        // Hitung total donasi barang yang statusnya 'sukses' atau 'success'
+        $totalItemDonate = Donate::whereIn('status', ['sukses', 'success'])->whereNotNull('item_qty')->sum('item_qty');
+    
+        // Hitung total pengguna aktif
+        $totalActiveUsers = User::where('is_active', 1)->count();
+    
+        return view('backend.index', compact('donates', 'totalCashDonate', 'totalItemDonate', 'totalActiveUsers'));
     }
+    
 }

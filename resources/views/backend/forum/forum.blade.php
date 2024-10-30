@@ -4,7 +4,7 @@
 <section class="main-content flex-1 p-6 overflow-y-auto transition-all duration-300">
     <div class="container mx-auto p-4">
         <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-lg p-6">
-            <h2 class="text-3xl font-bold mb-4 text-center text-blue-600">Forum Diskusi (Grup Chat)</h2>
+            <h2 class="text-3xl font-bold mb-4 text-center text-blue-600">Forum Diskusi</h2>
 
             <div class="overflow-y-auto h-96 border border-gray-300 rounded-lg p-4 mb-4 bg-gray-50 shadow-inner">
                 <!-- Static Chat Example -->
@@ -35,7 +35,7 @@
                 <div class="mb-3">
                     <div class="flex items-start mb-1">
                         <span class="font-semibold text-blue-600">Admin:</span>
-                        <p class="ml-2 text-gray-700">Saya berpikir untuk membahas tentang perkembangan teknologi terbaru.</p>
+                        <p class="ml-2 text-gray-700">Bagaimana cara mengatasi bencana kelaparan yang sedang kita hadapip>
                     </div>
                     <span class="text-xs text-gray-500">10:06 AM</span>
                 </div>
